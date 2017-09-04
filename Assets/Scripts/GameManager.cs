@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Singleton<GameManager> {
 
-    public static GameManager instance = null;
     public GameObject spawnPoint;
     public GameObject[] enemies;
 
@@ -14,20 +13,6 @@ public class GameManager : MonoBehaviour {
 
     private int enemiesOnScreen = 0;
     const float spawnDelay = 1f;
-
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
-    }
 
     void Start ()
     {
