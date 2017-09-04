@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager> {
 
-    public GameObject spawnPoint;
-    public GameObject[] enemies;
+    [SerializeField] GameObject spawnPoint;
+    [SerializeField] GameObject[] enemies;
 
-    public int maxEnemeiesOnScreen;
-    public int totalEnemies;
-    public int enemiesPerSpawn;
+    [SerializeField] int maxEnemeiesOnScreen;
+    [SerializeField] int totalEnemies;
+    [SerializeField] int enemiesPerSpawn;
 
-    private int enemiesOnScreen = 0;
+    int enemiesOnScreen = 0;
     const float spawnDelay = 1f;
 
     void Start ()
