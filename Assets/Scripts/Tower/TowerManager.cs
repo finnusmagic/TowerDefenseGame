@@ -6,6 +6,12 @@ using UnityEngine.EventSystems;
 public class TowerManager : Singleton<TowerManager> {
 
     private TowerButton towerButtonPressed;
+    private SpriteRenderer spriteRenderer;
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
@@ -20,6 +26,11 @@ public class TowerManager : Singleton<TowerManager> {
                 PlaceTower(hit);
             }
         }
+
+        if (spriteRenderer.enabled)
+        {
+            FollowMouse();
+        }
     }
 
     public void PlaceTower(RaycastHit2D hit)
@@ -28,12 +39,31 @@ public class TowerManager : Singleton<TowerManager> {
         {
             GameObject newTower = Instantiate(towerButtonPressed.TowerObject);
             newTower.transform.position = hit.transform.position;
+            DisableDragSprite();
         }
     }
 
     public void SelectedTower(TowerButton towerSelected)
     {
         towerButtonPressed = towerSelected;
+        EnableDragSprite(towerButtonPressed.DragSprite);
+    }
+
+    public void FollowMouse()
+    {
+        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = new Vector2(transform.position.x, transform.position.y);
+    }
+
+    public void EnableDragSprite(Sprite sprite)
+    {
+        spriteRenderer.enabled = true;
+        spriteRenderer.sprite = sprite;
+    }
+
+    public void DisableDragSprite()
+    {
+        spriteRenderer.enabled = false;
     }
 
 }
