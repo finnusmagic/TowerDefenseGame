@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class TowerButton : MonoBehaviour {
 
-    [SerializeField] GameObject towerObject;
+    [SerializeField] Tower towerObject;
     [SerializeField] Sprite dragSprite;
+    [SerializeField] int towerPrice;
 
-    public GameObject TowerObject
+    public Tower TowerObject
     {
         get
         {
@@ -20,6 +21,14 @@ public class TowerButton : MonoBehaviour {
         get
         {
             return dragSprite;
+        }
+    }
+
+    public int TowerPrice
+    {
+        get
+        {
+            return towerPrice;
         }
     }
 }

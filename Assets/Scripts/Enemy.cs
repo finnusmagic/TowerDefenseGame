@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] Transform[] wayPoints;
     [SerializeField] float navigationUpdate;
     [SerializeField] int healthPoints;
+    [SerializeField] int rewardAmount;
 
     int target = 0;
     private Transform enemy;
@@ -62,7 +63,10 @@ public class Enemy : MonoBehaviour {
         }
         else if (other.tag == "Finish")
         {
+            GameManager.Instance.RoundEscaped += 1;
+            GameManager.Instance.TotalEscaped += 1;
             GameManager.Instance.UnregisterEnemy(this);
+            GameManager.Instance.IsWaveOver();
         } 
         else if (other.tag == "Projectile")
         {
@@ -77,11 +81,11 @@ public class Enemy : MonoBehaviour {
         if (healthPoints - hitpoints > 0)
         {
             healthPoints -= healthPoints;
+            GameManager.Instance.AudioSource.PlayOneShot(SoundManager.Instance.Hit);
             animator.Play("Hurt");
         }
         else
         {
-            animator.SetTrigger("didDie");
             Die();
         }
     }
@@ -89,6 +93,11 @@ public class Enemy : MonoBehaviour {
     public void Die()
     {
         isDead = true;
+        animator.SetTrigger("didDie");
         enemyCollider.enabled = false;
+        GameManager.Instance.TotalKilled += 1;
+        GameManager.Instance.AudioSource.PlayOneShot(SoundManager.Instance.Death);
+        GameManager.Instance.AddMoney(rewardAmount);
+        GameManager.Instance.IsWaveOver();
     }
 }
