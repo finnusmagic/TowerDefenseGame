@@ -140,6 +140,7 @@ public class GameManager : Singleton<GameManager> {
     {
         EnemyList.Remove(enemy);
         Destroy(enemy.gameObject);
+        IsWaveOver();
     }
 
     public void DestroyAllEnemies()
