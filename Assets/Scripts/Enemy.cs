@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour {
     void Start()
     {
         enemy = GetComponent<Transform>();
+        GameManager.Instance.RegisterEnemy(this);
     }
 
     void Update()
@@ -47,8 +48,7 @@ public class Enemy : MonoBehaviour {
         }
         else if (other.tag == "Finish")
         {
-            GameManager.Instance.RemoveEnemyFromScreen();
-            Destroy(gameObject);
+            GameManager.Instance.UnregisterEnemy(this);
         }
     }
 }
