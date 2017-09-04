@@ -9,6 +9,7 @@ public class TowerManager : Singleton<TowerManager> {
     public void SelectedTower(TowerButton towerSelected)
     {
         towerButtonPressed = towerSelected;
+        Debug.Log("Pressed: " + towerButtonPressed.gameObject);
     }
 
 }
